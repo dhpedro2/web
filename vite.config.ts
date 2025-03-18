@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/web/", // Nome do seu repositório
+  base: "/web/", // Nome do repositório no GitHub Pages
   server: {
     host: "::",
     port: 8080,
@@ -17,5 +17,8 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    outDir: "dist", // Pasta de saída correta
   },
 }));
