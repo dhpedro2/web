@@ -1,0 +1,38 @@
+name: Deploy Vite to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Garante que o deploy ocorra sempre que houver push na branch main
+
+  workflow_dispatch:  # Permite executar o workflow manualmente pelo GitHub
+
+permissions:
+  contents: write  # Permite escrever no repositório
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 🔧 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      - name: ⚡ Gerar build
+        run: npm run build
+
+      - name: 🚀 Fazer deploy no GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # Publica no branch gh-pages
+          folder: dist       # Pasta gerada pelo Vite
+
